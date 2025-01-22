@@ -1,2 +1,4 @@
 pierwsza linia kodu
 druga linia kodu
+trzecia linia kodu
+czwarta
