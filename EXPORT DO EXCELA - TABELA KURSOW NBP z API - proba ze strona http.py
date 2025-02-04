@@ -1,3 +1,5 @@
+# PRÓBA ZROBIENIA STRONY INTERNETOWEJ Z ZAIMPORTOWANIEM DANYCH Z EXCELA, W KTÓRYM SĄ DANE Z API NBP
+
 # MÓJ PROGRAM WYKORZYSTUJĄCY LISTY I SŁOWNIKI - Oraz requests.get(url)
 import os
 os.system("cls")
@@ -22,45 +24,40 @@ if not response.ok:
 
 jsons = response.json()
 
-lista_liczb_test = list(range(1))
+#for x in list(range(32)):
+# rates = jsons[0]['rates'][x]
+#    print(rates)
+# elements = rates.items()
+#    print(elements)
+# titlerow = ('WALUTA','KOD','KURS WALUTY z dnia: ' + data_do_url)
 
-for x in lista_liczb_test:
-    rates = jsons[0]['rates'][x]
-    elements = rates.items()
-    print("\n",'SKŁADOWE PLIKU JSON:')
-    powt = '-' * 90
-    print(powt)    
-    print("json:","\n",jsons)
-    print("\n","rates: ","\n",rates)
-    print("\n","elements: ","\n",elements)
-    print("\n",'docelowy układ:',"\n")
-    print(rates['currency'],"\t",rates['code'],"\t",rates['mid'])
+os.system("cls")
+powt = '=' * 81
 
-powt = '=' * 90
+print('TABELA WALUT')
 print(powt) 
-print("jsons:",type(jsons))
-print("rates:",type(rates))
-print("elements:",type(elements))
-print("x:",type(x))
 
+print(f"{'WALUTA':40}","|",f"{'KOD':5}","|",f"{'KURS WALUTY z dnia: ' + data_do_url:10}")
+# print(titlerow)
 print(powt) 
-print('WŁAŚCIWA TABELA WALUT')
-print(powt) 
-titlerow = ('WALUTA','KOD','KURS WALUTY z dnia:',data_do_url)
-
-powt = '-' * 90
-print(powt)    
 
 lista_liczb = list(range(1,32))
-# test wygenerowania listy liczb z podanego wyżej zakresu
-# for elem_lista_liczb in lista_liczb:
-#     print("lista liczb:",elem_lista_liczb)
+
+for x in lista_liczb:
+    rates = jsons[0]['rates'][x]
+    column1=rates['currency']
+    column2=rates['code']
+    column3=rates['mid']
+    # content = [column1,column2,column3]
+    print(f"{column1:40}","|",f"{column2:5}","|",f"{column3:10}")
+
+print(powt) 
 
 from pandas import DataFrame
+titlerow = ('WALUTA','KOD','KURS WALUTY z dnia: ' + data_do_url)
 
 total_content = []
 total_content.append(titlerow)
-
 for x in lista_liczb:
     rates = jsons[0]['rates'][x]
     column1=rates['currency']
@@ -68,7 +65,6 @@ for x in lista_liczb:
     column3=rates['mid']
     content = [column1,column2,column3]
     total_content.append(content)
-
 
 df = DataFrame(total_content)
 
